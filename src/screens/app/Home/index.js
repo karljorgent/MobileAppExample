@@ -9,8 +9,9 @@ import { products } from "../../../data/products";
 import Header from "../../../components/Header";
 import CategoryBox from "../../../components/CategoryBox";
 import ProductHomeItem from "../../../components/ProductHomeItem";
+import Button from "../../../components/Button";
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [selectedCategory, setSelectedCategory] = useState()
     const [keyword, setKeyword] = useState()
     const [selectedProducts, setSelectedProducts] = useState(products)
@@ -45,9 +46,8 @@ const Home = () => {
     }
 
     const renderProductItem = ({item}) => {
-        console.log('item => ', item)
         return (
-            <ProductHomeItem {...item}/>
+            <ProductHomeItem onPress={() => onProductPress(item)}{...item}/>
         )
     }
 
@@ -55,7 +55,7 @@ const Home = () => {
         <SafeAreaView>
             <View style={styles.container}>
                 <Header showSearch={true} onSearchKeyword={setKeyword} keyword={keyword} title="Find All You Need"/>
-                <FlatList showHorizontalScrollIndicator={false} style={styles.list} horizontal data={categories} renderItem={renderCategoryItem}  keyExtractor={(item, index) => String(index)}/>
+                <FlatList showsHorizontalScrollIndicator={false} style={styles.list} horizontal data={categories} renderItem={renderCategoryItem}  keyExtractor={(item, index) => String(index)}/>
                 <FlatList numColumns={2} data={selectedProducts} renderItem={renderProductItem} keyExtractor={(item) => String(item.id)} ListFooterComponent={< View style={{height: 250}}/>} />
             </View>
         </SafeAreaView>
